@@ -43,6 +43,18 @@ import java.util.Arrays;
 public class MaximumEqualFrequency{
     public static void main(String[] args) {
         Solution solution = new MaximumEqualFrequency().new Solution();
+        // 7
+        System.out.println(solution.maxEqualFreq(new int[]{2,2,1,1,5,3,3,5}));
+        // 13
+        System.out.println(solution.maxEqualFreq(new int[]{1,1,1,2,2,2,3,3,3,4,4,4,5}));
+        // 13
+        System.out.println(solution.maxEqualFreq(new int[]{1,1,1,2,2,2,3,3,3,4,4,4,4}));
+        // 6
+        System.out.println(solution.maxEqualFreq(new int[]{1,1,1,1,1,1}));
+        // 8
+        System.out.println(solution.maxEqualFreq(new int[]{10,2,8,9,3,8,1,5,2,3,7,6}));
+        // 5
+        System.out.println(solution.maxEqualFreq(new int[]{1,1,1,2,2,2}));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
@@ -53,11 +65,12 @@ public class MaximumEqualFrequency{
             int n = nums.length, max = 0, ans = 0;
             for (int i = 0; i < n; i++) {
                 int t = nums[i], cur = ++cnt[t], len = i + 1;
-                sum[cur]++; sum[cur - 1]--;
+                sum[cur]++;
+                // sum[cur - 1]--;
                 max = Math.max(max, cur);
                 if (max == 1) ans = len;
                 if (max * sum[max] + 1 == len) ans = len;
-                if ((max - 1) * (sum[max - 1] + 1) + 1 == len) ans = len;
+                if ((max - 1) * (sum[max - 1]) + 1 == len) ans = len;
             }
             return ans;
         }
