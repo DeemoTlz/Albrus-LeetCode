@@ -1,0 +1,38 @@
+# 解题思路
+
+根据题意，既然要计算两个相同字符之间的最长长度，那么我们可以将其保存在哈希表中，key=`字符` value=`下标`。那么，本题的约束条件中指明，s只包含小写英文字母，所以，我们可以采用**数组结构**来实现哈希表的功能，其中：
+
+> **数组的下标**：是字符的`ASCII码减97`（因为a的ASCII码是97，这样可以映射到数组的下标0的位置）。
+> **数组存储的值**：就是该字符`第一次出现`的位置。
+
+那么，我们遍历字符串`s`中的每个字符，如果发现了重复的字符，计算长度即可，最终通过`Math.max(...)`返回最长的字符串子串长度。具体操作如下图所示（为了便于描述，下图存储结构以哈希表存储）：
+
+![1.png](https://pic.leetcode-cn.com/1663376304-fPkpEo-1.png)
+
+# 代码实现
+
+* java
+
+```java
+class Solution {
+    public int maxLengthBetweenEqualCharacters(String s) {
+        int result = -1;
+        int[] charIndex = new int[26];
+        Arrays.fill(charIndex, -1);
+        char[] sc = s.toCharArray();
+        for (int i = 0; i < sc.length; i++) {
+            if (charIndex[sc[i] - 97] == -1) charIndex[sc[i] - 97] = i;
+            else result = Math.max(result, i - charIndex[sc[i] - 97] - 1);
+        }
+        return result;
+    }
+}
+```
+
+![1.png](https://pic.leetcode-cn.com/1663376271-snSCbg-1.png)
+
+今天的文章内容就这些了：
+
+> 写作不易，笔者几个小时甚至数天完成的一篇文章，只愿换来您几秒钟的 **点赞** & **分享** 。
+
+更多技术干货，欢迎大家关注公众号“**爪哇缪斯**” ~ \\(^o^)/ ~ 「干货分享，每天更新」
